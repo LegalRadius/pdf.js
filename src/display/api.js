@@ -63,7 +63,7 @@ var createScratchCanvas = displayCanvas.createScratchCanvas;
 var Metadata = displayMetadata.Metadata;
 var getDefaultSetting = displayDOMUtils.getDefaultSetting;
 
-var DEFAULT_RANGE_CHUNK_SIZE = 65536; // 2^16 = 65536
+var DEFAULT_RANGE_CHUNK_SIZE = 524288; // 2^19 ~ 0.5MB
 
 var isWorkerDisabled = false;
 var workerSrc;
