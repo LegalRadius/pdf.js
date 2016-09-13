@@ -210,7 +210,7 @@ var PDFViewerApplication = {
       renderingQueue: pdfRenderingQueue,
       linkService: pdfLinkService,
       downloadManager: downloadManager,
-      enhanceTextSelection: false,
+      enhanceTextSelection: true,
     });
     pdfRenderingQueue.setViewer(this.pdfViewer);
     pdfLinkService.setViewer(this.pdfViewer);
@@ -388,7 +388,7 @@ var PDFViewerApplication = {
   },
 
   run: function pdfViewRun(config) {
-    this.initialize(config).then(webViewerInitialized);
+   return this.initialize(config).then(webViewerInitialized);
   },
 
   zoomIn: function pdfViewZoomIn(ticks) {
