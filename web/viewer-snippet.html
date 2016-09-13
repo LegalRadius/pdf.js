@@ -2,3 +2,31 @@
 <link rel="resource" type="application/l10n" href="locale/locale.properties">
 <script src="l10n.js"></script>
 <script src="../build/pdf.js"></script>
+
+<script type="text/javascript">
+    function loadJS() {
+        // Set app settings
+        window.globals = window.parent.pdfParams;
+        window.globals.fileId = location.hash.replace('#', '').split('&')
+            .filter(function (p) {
+                return p.indexOf('fileId=') > -1
+            })[0].replace('fileId=', '');
+
+        window.annotationsPromise = new Promise(function (resolve) {
+            window.pdfjsAnnotationsResolve = resolve; // Promise to ensure proper loading of lr-annotations
+            [{ src: "../node_modules/requirejs/require.js", 'data-main': "../app/scripts/config" },
+             { src: "compatibility.js" },
+             { src: "debugger.js" },
+             { src: "viewer.js" }].forEach(function (loader) {
+                 var script = document.createElement('script');
+
+                 for (var key in loader)
+                     script.setAttribute(key, loader[key]);
+
+                 document.getElementsByTagName('body')[0].appendChild(script);
+             });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadJS, true);
+    </script>

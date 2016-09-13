@@ -167,9 +167,9 @@ function getViewerConfiguration() {
   };
 }
 
+//#if !PRODUCTION
 function webViewerLoad() {
   var config = getViewerConfiguration();
-//#if !PRODUCTION
   require.config({paths: {'pdfjs': '../src', 'pdfjs-web': '.'}});
   require(['pdfjs-web/pdfjs'], function () {
     // Ensure that src/main_loader.js has loaded all the necessary dependencies
@@ -180,10 +180,11 @@ function webViewerLoad() {
       web.PDFViewerApplication.run(config);
     });
   });
-//#else
-//window.PDFViewerApplication = pdfjsWebLibs.pdfjsWebApp.PDFViewerApplication;
-//pdfjsWebLibs.pdfjsWebApp.PDFViewerApplication.run(config);
-//#endif
 }
-
 document.addEventListener('DOMContentLoaded', webViewerLoad, true);
+//#else
+//var config = getViewerConfiguration();
+//window.PDFViewerApplication = pdfjsWebLibs.pdfjsWebApp.PDFViewerApplication;
+//window.afterPdfInit = window.annotationsPromise.then(pdfjsWebLibs.pdfjsWebApp.PDFViewerApplication.run.bind(pdfjsWebLibs.pdfjsWebApp.PDFViewerApplication, config));
+//#endif
+
